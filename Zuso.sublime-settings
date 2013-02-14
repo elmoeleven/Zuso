@@ -1,0 +1,24 @@
+{
+	// Zuso runs in the backgroundand displays
+	// inline conversions by default, you can also enable
+	// it to be run via keystroke by setting active to true
+	"active": true,
+
+	// Enable to return uppercase hex values
+	"uppercase": false,
+
+	// Add inline comments of converted values (coming soon)
+	// "inline_comments": false,
+
+	// Disable to not give back shortened
+	// hex values where possible
+	"three_hex": true,
+
+	// Default opacity for RGBA values
+	"opacity": 1,
+
+	// Zuso converts to RGBA by default
+	// but can also be enabled to convert
+	// to RGB
+	"rgb": false
+}
