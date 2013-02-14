@@ -1,8 +1,8 @@
 {
-	// Zuso runs in the backgroundand displays
+	// Zuso runs in the background and displays
 	// inline conversions by default, you can also enable
 	// it to be run via keystroke by setting active to true
-	"active": true,
+	"active": false,
 
 	// Enable to return uppercase hex values
 	"uppercase": false,
