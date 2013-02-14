@@ -35,7 +35,7 @@ Using
 -----
 Zuso runs in either it's default or `active` modes, which is determined by the "active" user setting:
 
-* **Default** - When "active" is set to false,  on selection, Zuso recognizes `hex`, `rgb`, `rgba` values, converts them and displays them in the ST2 autocomplete box.versions to your autocomplete list.
+* **Default** - When "active" is set to false,  on selection, Zuso recognizes `hex`, `rgb`, `rgba` values, converts them and displays them in the ST2 autocomplete list.
 
 * **Active mode** - When "active" is set to true, you can select more than one selection and invoke Zuso via `Ctrl+Shift+3`.
 
