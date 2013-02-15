@@ -14,6 +14,7 @@ if not sublime.version() or int(sublime.version()) > 3000:
 HEX_REGEX = re.compile(r'#(([0-9a-fA-F]{3})([0-9a-fA-F]{3})?){1}$')
 RGBA_REGEX = re.compile(r'rgba\(\s*(?:(\d{1,3})\s*,?\s*){3}(([0](.\d*)?)|[1])\)$')
 RGB_REGEX = re.compile(r'rgb\(\s*(?:(\d{1,3})\s*,?\s*){2}(\d{1,3})\)$')
+FILE_REGEX = re.compile('.*\.(css|sass|scss)\Z(?ms)')
 
 # Import Settings
 settings = sublime.load_settings('Zuso.sublime-settings')
@@ -46,7 +47,9 @@ def is_valid_file(filename):
         is_valid_file(filename)
         verify either css or sass files
     '''
-    return '.css' or '.scss' or '.sass' in filename
+    if FILE_REGEX.match(filename):
+        return True
+    return False
 
 
 def check_hex(string):
@@ -100,10 +103,8 @@ def initiate(view, sels, **kwargs):
                         inline_comments=inline_comments,
                         three_hex=three_hex,
                         opacity=check_opacity(),
-                        rgb=rgb,
                         typeof=typeof,
                         output=output,
-                        **kwargs
                     )
             _cvtr.convert()
             return _cvtr
@@ -118,12 +119,14 @@ class ZusoListener(EventListener):
         '''
         self.view = view
         self.filename = self.view.file_name()
+
         if not is_valid_file(self.filename):
-            return []
+            return
 
         if not active:
             sels = self.view.sel()
             self.cvtr = initiate(view, sels)
+
             if self.cvtr:
                 self.show_auto_complete()
 
@@ -134,9 +137,6 @@ class ZusoListener(EventListener):
             completions is done
         '''
         if not active:
-            if not is_valid_file(self.filename):
-                return []
-
             return self.get_completions()
 
     def get_completions(self):
@@ -299,7 +299,7 @@ class Converter(Thread):
         '''
         self.props['string'] = self.props['string'].lstrip('#')
 
-        if self.props['rgb']:
+        if rgb:
             val = self.hex2rgba()
             return 'rgb(%s,%s,%s)' % val[0: len(val) - 1]
             # return 'rgba{}'.format(val[0: len(val) - 1])
